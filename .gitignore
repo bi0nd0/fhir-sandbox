@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+data/r4/*
+!data/r4/123456/
+!data/r4/123456/**

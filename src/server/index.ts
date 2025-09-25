@@ -13,6 +13,9 @@ import { medicationRequestRoutes } from './routes/medication-request'
 import { metadataRoute } from './routes/metadata'
 import { observationRoutes } from './routes/observation'
 import { patientRoutes } from './routes/patient'
+import { conditionRoutes } from './routes/condition'
+import { coverageRoutes } from './routes/coverage'
+import { encounterRoutes } from './routes/encounter'
 import { createOidcProvider } from './oauth/provider'
 import { completeInteraction } from './oauth/interactions'
 import type { AppEnv } from './types'
@@ -128,6 +131,9 @@ export const createApp = () => {
   app.route('/r4/Observation', observationRoutes)
   app.route('/r4/AllergyIntolerance', allergyIntoleranceRoutes)
   app.route('/r4/MedicationRequest', medicationRequestRoutes)
+  app.route('/r4/Condition', conditionRoutes)
+  app.route('/r4/Coverage', coverageRoutes)
+  app.route('/r4/Encounter', encounterRoutes)
   app.route('/:version/metadata', metadataRoute)
 
   app.notFound((c) => {

@@ -6,9 +6,11 @@ A lightweight SMART on FHIR R4 sandbox built with Node.js, TypeScript, and Hono.
 
 ```bash
 npm install
-npm run dev:server    # Start the Hono API (defaults to http://localhost:3000)
+npm run dev:server    # Start the Hono API with auto-restart (http://localhost:3000)
 npm run dev           # Optional: start the Vite client placeholder on http://localhost:5173
 ```
+
+> `npm run dev:server` uses `tsx watch` so the server restarts automatically when files in `src/server` change.
 
 ### Configuration
 
@@ -35,6 +37,9 @@ All endpoints are namespaced under `/r4`:
 - `GET /r4/Observation?patient=<id>&category=<vital-signs|laboratory|social-history>` – retrieve category-scoped observations. The `patient` parameter accepts either `<id>` or `Patient/<id>` formats and the `category` parameter is required.
 - `GET /r4/AllergyIntolerance?patient=<id>` – list allergy intolerances for a patient (accepts `<id>` or `Patient/<id>` formats).
 - `GET /r4/MedicationRequest?patient=<id>` – list medication requests for a patient (accepts `<id>` or `Patient/<id>` formats).
+- `GET /r4/Condition?patient=<id>&category=<problem-list-item|reason-for-visit|medical-history>` – retrieve condition bundles scoped by category.
+- `GET /r4/Coverage?patient=<id>` – fetch coverage information for a patient.
+- `GET /r4/Encounter?patient=<id>` – list encounters recorded for a patient.
 - `GET /r4/metadata` – minimal FHIR CapabilityStatement advertising SMART on FHIR support (other FHIR releases return 404 until implemented).
 
 Responses are served with the `application/fhir+json` content type and return OperationOutcome payloads on validation or data errors.
@@ -56,6 +61,10 @@ Static payloads live in `data/r4/<patientId>`; for example, patient `123456` inc
 
 ```
 patient.json
+condition.problem-list-item.json
+condition.reason-for-visit.json
+coverage.json
+encounter.json
 observation.vital-signs.json
 observation.laboratory.json
 observation.social-history.json

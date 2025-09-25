@@ -1,0 +1,28 @@
+{
+  "resourceType": "Bundle",
+  "type": "searchset",
+  "total": 1,
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:coverage-123456",
+      "resource": {
+        "resourceType": "Coverage",
+        "id": "coverage-123456",
+        "status": "active",
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+              "code": "EHCPOL",
+              "display": "extended healthcare"
+            }
+          ]
+        },
+        "subscriberId": "SUB-123456",
+        "beneficiary": {
+          "reference": "Patient/123456"
+        }
+      }
+    }
+  ]
+}

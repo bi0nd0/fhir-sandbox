@@ -10,7 +10,7 @@ const FHIR_VERSION_MAP: Record<string, { fhirVersion: string }> = {
   r4: { fhirVersion: '4.0.1' },
 }
 
-const SMART_INSTantiates_URL =
+const SMART_INSTANTIATES_URL =
   'http://hl7.org/fhir/smart-app-launch/CapabilityStatement/smart-app-launch'
 
 const resolveOrigin = (c: Context<AppEnv>): string => {
@@ -46,7 +46,7 @@ export const capabilityStatementHandler = (c: Context<AppEnv>) => {
     date: new Date().toISOString(),
     kind: 'capability' as const,
     copyright: 'SMART on FHIR Sandbox © 2024',
-    instantiates: [SMART_INSTantiates_URL],
+    instantiates: [SMART_INSTANTIATES_URL],
     fhirVersion: metadata.fhirVersion,
     format: ['json', 'application/fhir+json'],
     rest: [
