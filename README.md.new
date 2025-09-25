@@ -12,12 +12,11 @@ npm run dev           # Optional: start the Vite client placeholder on http://lo
 
 ### Configuration
 
-| Variable             | Purpose                                             | Default                      |
-|----------------------|-----------------------------------------------------|------------------------------|
-| `CORS_ALLOW_ORIGINS` | Comma-separated list of origins allowed via CORS.   | `*`                          |
-| `EXTERNAL_BASE_URL`  | Public base URL used in CapabilityStatement links. | *(derived from request)*     |
-| `OIDC_ISSUER`        | External issuer URL reported by the OAuth provider. | `http://localhost:3000/oauth2` |
-| `OIDC_COOKIE_KEY`    | Signing key for OIDC cookies.                       | `smart-sandbox-secret`       |
+| Variable             | Purpose                                             | Default                       |
+|----------------------|-----------------------------------------------------|-------------------------------|
+| `CORS_ALLOW_ORIGINS` | Comma-separated list of origins allowed via CORS.   | `*`
+| `OIDC_ISSUER`        | External issuer URL reported by the OAuth provider. | `http://localhost:3000/oauth2`|
+| `OIDC_COOKIE_KEY`    | Signing key for OIDC cookies.                       | `smart-sandbox-secret`
 
 ### Build & Test
 
