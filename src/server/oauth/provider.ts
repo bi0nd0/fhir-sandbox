@@ -15,6 +15,8 @@ type DynamicClient = {
 const DEFAULT_SCOPES = [
   'openid',
   'profile',
+  'offline_access',
+  'online_access',
   'patient/*.read',
   'user/*.read',
   'system/*.read',
@@ -39,7 +41,7 @@ const createDefaultClient = (clientId: string): DynamicClient => ({
   client_secret: randomUUID(),
   redirect_uris: [],
   response_types: ['code'],
-  grant_types: ['authorization_code'],
+  grant_types: ['authorization_code', 'refresh_token'],
   token_endpoint_auth_method: 'client_secret_basic',
 })
 
@@ -107,6 +109,10 @@ export const createOidcProvider = (): ProviderContext => {
 
     if (clientSecret) {
       current.client_secret = clientSecret
+    }
+
+    if (!current.grant_types.includes('refresh_token')) {
+      current.grant_types.push('refresh_token')
     }
 
     registry.set(clientId, current)

@@ -1,0 +1,178 @@
+{
+  "resourceType": "Bundle",
+  "type": "searchset",
+  "total": 3,
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:appointment-123456-surgery",
+      "resource": {
+        "resourceType": "Appointment",
+        "id": "appointment-123456-surgery",
+        "status": "booked",
+        "serviceCategory": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/service-category",
+                "code": "surgery",
+                "display": "Surgery"
+              }
+            ],
+            "text": "Surgery"
+          }
+        ],
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "387713003",
+                "display": "Appendectomy"
+              }
+            ],
+            "text": "Appendectomy"
+          }
+        ],
+        "description": "Laparoscopic appendectomy pre-op",
+        "start": "2024-12-12T06:30:00-05:00",
+        "end": "2024-12-12T08:00:00-05:00",
+        "participant": [
+          {
+            "actor": {
+              "reference": "Patient/123456"
+            },
+            "status": "accepted"
+          },
+          {
+            "actor": {
+              "reference": "Practitioner/surgeon-1",
+              "display": "Dr. Chen"
+            },
+            "status": "accepted"
+          },
+          {
+            "actor": {
+              "reference": "Location/or",
+              "display": "Operating Room 3"
+            },
+            "status": "accepted"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:appointment-123456-preop",
+      "resource": {
+        "resourceType": "Appointment",
+        "id": "appointment-123456-preop",
+        "status": "booked",
+        "serviceCategory": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/service-category",
+                "code": "surgery",
+                "display": "Surgery"
+              }
+            ],
+            "text": "Surgery"
+          }
+        ],
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "30549001",
+                "display": "Preoperative assessment"
+              }
+            ],
+            "text": "Pre-op assessment"
+          }
+        ],
+        "description": "Preoperative assessment and consent discussion",
+        "start": "2024-12-05T09:00:00-05:00",
+        "end": "2024-12-05T09:45:00-05:00",
+        "participant": [
+          {
+            "actor": {
+              "reference": "Patient/123456"
+            },
+            "status": "accepted"
+          },
+          {
+            "actor": {
+              "reference": "Practitioner/surgeon-1",
+              "display": "Dr. Chen"
+            },
+            "status": "accepted"
+          },
+          {
+            "actor": {
+              "reference": "Location/preop",
+              "display": "Pre-op Clinic"
+            },
+            "status": "accepted"
+          }
+        ]
+    }
+    },
+    {
+      "fullUrl": "urn:uuid:appointment-123456-postop",
+      "resource": {
+        "resourceType": "Appointment",
+        "id": "appointment-123456-postop",
+        "status": "booked",
+        "serviceCategory": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/service-category",
+                "code": "surgery",
+                "display": "Surgery"
+              }
+            ],
+            "text": "Surgery"
+          }
+        ],
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "1156206007",
+                "display": "Postoperative follow-up"
+              }
+            ],
+            "text": "Post-op follow-up"
+          }
+        ],
+        "description": "Postoperative follow-up with wound check",
+        "start": "2024-12-20T10:15:00-05:00",
+        "end": "2024-12-20T10:45:00-05:00",
+        "participant": [
+          {
+            "actor": {
+              "reference": "Patient/123456"
+            },
+            "status": "accepted"
+          },
+          {
+            "actor": {
+              "reference": "Practitioner/surgeon-1",
+              "display": "Dr. Chen"
+            },
+            "status": "accepted"
+          },
+          {
+            "actor": {
+              "reference": "Location/postop",
+              "display": "Surgery Clinic"
+            },
+            "status": "accepted"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -12,7 +12,7 @@ describe('GET /r4/Observation', () => {
 
     const body = await response.json()
     expect(body.resourceType).toBe('Bundle')
-    expect(body.total).toBe(2)
+    expect(body.total).toBeGreaterThanOrEqual(7)
   })
 
   it('accepts patient references with resource prefix', async () => {
@@ -24,7 +24,7 @@ describe('GET /r4/Observation', () => {
 
     const body = await response.json()
     expect(body.resourceType).toBe('Bundle')
-    expect(body.total).toBe(2)
+    expect(body.total).toBeGreaterThanOrEqual(7)
   })
 
   it('rejects missing category queries', async () => {
@@ -55,6 +55,24 @@ describe('GET /r4/Observation', () => {
     const body = await response.json()
     expect(body.resourceType).toBe('OperationOutcome')
     expect(body.issue?.[0]?.code).toBe('invalid')
+  })
+
+  it('returns core characteristic observations when requested', async () => {
+    const response = await app.request(
+      '/r4/Observation?patient=123456&category=core-characteristics',
+    )
+
+    expect(response.status).toBe(200)
+
+    const body = await response.json()
+    expect(body.resourceType).toBe('Bundle')
+    expect(body.total).toBe(3)
+    const categories = (body.entry ?? []).flatMap((entry: any) =>
+      (entry.resource?.category ?? []).flatMap((category: any) =>
+        (category.coding ?? []).map((coding: any) => coding.code ?? ''),
+      ),
+    )
+    expect(categories).toContain('core-characteristics')
   })
 
   it('rejects invalid patient references', async () => {

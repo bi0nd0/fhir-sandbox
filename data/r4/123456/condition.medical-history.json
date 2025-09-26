@@ -1,0 +1,127 @@
+{
+  "resourceType": "Bundle",
+  "type": "searchset",
+  "total": 3,
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:medical-history-1",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "medical-history-1",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+                "code": "medical-history",
+                "display": "Medical History"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "44054006",
+              "display": "Type 2 diabetes mellitus"
+            }
+          ],
+          "text": "Type 2 diabetes"
+        },
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active"
+            }
+          ]
+        },
+        "recordedDate": "2015-03-12",
+        "subject": {
+          "reference": "Patient/123456"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:medical-history-2",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "medical-history-2",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+                "code": "medical-history",
+                "display": "Medical History"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "38341003",
+              "display": "Hypertensive disorder, systemic arterial"
+            }
+          ],
+          "text": "Hypertension"
+        },
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active"
+            }
+          ]
+        },
+        "recordedDate": "2012-07-01",
+        "subject": {
+          "reference": "Patient/123456"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:medical-history-3",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "medical-history-3",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+                "code": "medical-history",
+                "display": "Medical History"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "13645005",
+              "display": "Myocardial infarction"
+            }
+          ],
+          "text": "History of myocardial infarction"
+        },
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "resolved"
+            }
+          ]
+        },
+        "recordedDate": "2010-05-20",
+        "subject": {
+          "reference": "Patient/123456"
+        }
+      }
+    }
+  ]
+}

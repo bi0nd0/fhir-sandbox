@@ -1,0 +1,84 @@
+{
+  "resourceType": "Bundle",
+  "type": "searchset",
+  "total": 3,
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:device-implant-1",
+      "resource": {
+        "resourceType": "Device",
+        "id": "device-implant-1",
+        "status": "active",
+        "type": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "47448006",
+              "display": "Cardiac pacemaker"
+            }
+          ],
+          "text": "Dual chamber pacemaker"
+        },
+        "patient": {
+          "reference": "Patient/123456"
+        },
+        "owner": {
+          "reference": "Organization/example-hospital",
+          "display": "Example Hospital"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:device-wearable-1",
+      "resource": {
+        "resourceType": "Device",
+        "id": "device-wearable-1",
+        "status": "active",
+        "type": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "70617009",
+              "display": "Continuous glucose monitor"
+            }
+          ],
+          "text": "Continuous glucose monitoring sensor"
+        },
+        "patient": {
+          "reference": "Patient/123456"
+        },
+        "note": [
+          {
+            "text": "Dexcom G7 sensor replaced every 10 days"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:device-home-1",
+      "resource": {
+        "resourceType": "Device",
+        "id": "device-home-1",
+        "status": "active",
+        "type": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "468063009",
+              "display": "Blood pressure monitor"
+            }
+          ],
+          "text": "Home blood pressure cuff"
+        },
+        "patient": {
+          "reference": "Patient/123456"
+        },
+        "note": [
+          {
+            "text": "Reported measurements sync via Bluetooth"
+          }
+        ]
+      }
+    }
+  ]
+}

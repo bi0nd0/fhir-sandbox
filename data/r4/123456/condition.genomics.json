@@ -1,0 +1,124 @@
+{
+  "resourceType": "Bundle",
+  "type": "searchset",
+  "total": 3,
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:genomics-1",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "genomics-1",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+                "code": "genomics",
+                "display": "Genomic finding"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://sequenceontology.org",
+              "code": "SO:0001583",
+              "display": "missense_variant"
+            }
+          ],
+          "text": "BRCA1 missense variant"
+        },
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/123456"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:genomics-2",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "genomics-2",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+                "code": "genomics",
+                "display": "Genomic finding"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://sequenceontology.org",
+              "code": "SO:0001627",
+              "display": "intron_variant"
+            }
+          ],
+          "text": "CFTR intron variant"
+        },
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/123456"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:genomics-3",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "genomics-3",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+                "code": "genomics",
+                "display": "Genomic finding"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://sequenceontology.org",
+              "code": "SO:0001777",
+              "display": "splice_region_variant"
+            }
+          ],
+          "text": "TP53 splice region variant"
+        },
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "unknown"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/123456"
+        }
+      }
+    }
+  ]
+}

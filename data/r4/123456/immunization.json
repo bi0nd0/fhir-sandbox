@@ -1,0 +1,99 @@
+{
+  "resourceType": "Bundle",
+  "type": "searchset",
+  "total": 4,
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:imm-1",
+      "resource": {
+        "resourceType": "Immunization",
+        "id": "imm-1",
+        "status": "completed",
+        "vaccineCode": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/sid/cvx",
+              "code": "208",
+              "display": "COVID-19, mRNA, LNP-S, PF, 100 mcg/0.5 mL dose"
+            }
+          ],
+          "text": "Moderna COVID-19 Booster"
+        },
+        "patient": {
+          "reference": "Patient/123456"
+        },
+        "occurrenceDateTime": "2024-10-15",
+        "primarySource": true
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:imm-2",
+      "resource": {
+        "resourceType": "Immunization",
+        "id": "imm-2",
+        "status": "completed",
+        "vaccineCode": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/sid/cvx",
+              "code": "140",
+              "display": "Influenza, seasonal, injectable"
+            }
+          ],
+          "text": "Influenza vaccine"
+        },
+        "patient": {
+          "reference": "Patient/123456"
+        },
+        "occurrenceDateTime": "2023-10-01",
+        "primarySource": true
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:imm-3",
+      "resource": {
+        "resourceType": "Immunization",
+        "id": "imm-3",
+        "status": "completed",
+        "vaccineCode": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/sid/cvx",
+              "code": "48",
+              "display": "Hepatitis B, adult"
+            }
+          ],
+          "text": "Hepatitis B"
+        },
+        "patient": {
+          "reference": "Patient/123456"
+        },
+        "occurrenceDateTime": "2022-02-20",
+        "primarySource": true
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:imm-4",
+      "resource": {
+        "resourceType": "Immunization",
+        "id": "imm-4",
+        "status": "completed",
+        "vaccineCode": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/sid/cvx",
+              "code": "20",
+              "display": "DTaP"
+            }
+          ],
+          "text": "Tetanus, Diphtheria, Pertussis booster"
+        },
+        "patient": {
+          "reference": "Patient/123456"
+        },
+        "occurrenceDateTime": "2020-06-10",
+        "primarySource": true
+      }
+    }
+  ]
+}

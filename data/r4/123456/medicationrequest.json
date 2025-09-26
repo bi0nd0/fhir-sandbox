@@ -1,7 +1,7 @@
 {
   "resourceType": "Bundle",
   "type": "searchset",
-  "total": 1,
+  "total": 5,
   "entry": [
     {
       "resource": {
@@ -40,6 +40,186 @@
               {
                 "doseQuantity": {
                   "value": 10,
+                  "unit": "mg"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "med-002",
+        "status": "active",
+        "intent": "order",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "860975-1",
+              "display": "Metformin 500 MG Oral Tablet"
+            }
+          ],
+          "text": "Metformin 500 mg"
+        },
+        "subject": {
+          "reference": "Patient/123456"
+        },
+        "authoredOn": "2023-03-01",
+        "requester": {
+          "display": "Dr. Patel"
+        },
+        "dosageInstruction": [
+          {
+            "text": "Take one tablet twice daily with meals",
+            "timing": {
+              "repeat": {
+                "frequency": 2,
+                "period": 1,
+                "periodUnit": "d"
+              }
+            },
+            "doseAndRate": [
+              {
+                "doseQuantity": {
+                  "value": 500,
+                  "unit": "mg"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "med-003",
+        "status": "active",
+        "intent": "order",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "351908",
+              "display": "Insulin glargine 100 UNIT/ML Subcutaneous Solution"
+            }
+          ],
+          "text": "Insulin glargine"
+        },
+        "subject": {
+          "reference": "Patient/123456"
+        },
+        "authoredOn": "2022-11-10",
+        "requester": {
+          "display": "Dr. Patel"
+        },
+        "dosageInstruction": [
+          {
+            "text": "Inject 18 units subcutaneously at bedtime",
+            "timing": {
+              "repeat": {
+                "frequency": 1,
+                "period": 1,
+                "periodUnit": "d"
+              }
+            },
+            "doseAndRate": [
+              {
+                "doseQuantity": {
+                  "value": 18,
+                  "unit": "units"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "med-004",
+        "status": "active",
+        "intent": "order",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "617314",
+              "display": "Atorvastatin 20 MG Oral Tablet"
+            }
+          ],
+          "text": "Atorvastatin 20 mg"
+        },
+        "subject": {
+          "reference": "Patient/123456"
+        },
+        "authoredOn": "2021-06-18",
+        "requester": {
+          "display": "Dr. Smith"
+        },
+        "dosageInstruction": [
+          {
+            "text": "Take one tablet every evening",
+            "timing": {
+              "repeat": {
+                "frequency": 1,
+                "period": 1,
+                "periodUnit": "d"
+              }
+            },
+            "doseAndRate": [
+              {
+                "doseQuantity": {
+                  "value": 20,
+                  "unit": "mg"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "med-005",
+        "status": "active",
+        "intent": "order",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "1992211",
+              "display": "Semaglutide 0.5 MG/0.5 ML Subcutaneous Solution"
+            }
+          ],
+          "text": "Semaglutide 0.5 mg"
+        },
+        "subject": {
+          "reference": "Patient/123456"
+        },
+        "authoredOn": "2024-04-02",
+        "requester": {
+          "display": "Dr. Rivera"
+        },
+        "dosageInstruction": [
+          {
+            "text": "Inject 0.5 mg subcutaneously once weekly",
+            "timing": {
+              "repeat": {
+                "frequency": 1,
+                "period": 1,
+                "periodUnit": "wk"
+              }
+            },
+            "doseAndRate": [
+              {
+                "doseQuantity": {
+                  "value": 0.5,
                   "unit": "mg"
                 }
               }

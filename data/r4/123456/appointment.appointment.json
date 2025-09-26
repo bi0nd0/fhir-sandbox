@@ -1,0 +1,157 @@
+{
+  "resourceType": "Bundle",
+  "type": "searchset",
+  "total": 3,
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:appointment-123456-general",
+      "resource": {
+        "resourceType": "Appointment",
+        "id": "appointment-123456-general",
+        "status": "booked",
+        "serviceCategory": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/service-category",
+                "code": "appointment",
+                "display": "General Appointment"
+              }
+            ],
+            "text": "General Appointment"
+          }
+        ],
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "408443003",
+                "display": "General medical examination"
+              }
+            ],
+            "text": "Annual wellness visit"
+          }
+        ],
+        "description": "Annual wellness visit",
+        "start": "2024-11-05T09:00:00-05:00",
+        "end": "2024-11-05T09:45:00-05:00",
+        "participant": [
+          {
+            "actor": {
+              "reference": "Patient/123456"
+            },
+            "status": "accepted"
+          },
+          {
+            "actor": {
+              "reference": "Practitioner/primary-care-1",
+              "display": "Dr. Rivera"
+            },
+            "status": "accepted"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:appointment-123456-followup",
+      "resource": {
+        "resourceType": "Appointment",
+        "id": "appointment-123456-followup",
+        "status": "booked",
+        "serviceCategory": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/service-category",
+                "code": "appointment",
+                "display": "General Appointment"
+              }
+            ],
+            "text": "General Appointment"
+          }
+        ],
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "185349003",
+                "display": "Follow-up appointment"
+              }
+            ],
+            "text": "Post visit follow-up"
+          }
+        ],
+        "description": "Follow-up visit to review lab results",
+        "start": "2025-01-10T14:30:00-05:00",
+        "end": "2025-01-10T15:00:00-05:00",
+        "participant": [
+          {
+            "actor": {
+              "reference": "Patient/123456"
+            },
+            "status": "accepted"
+          },
+          {
+            "actor": {
+              "reference": "Practitioner/primary-care-1",
+              "display": "Dr. Rivera"
+            },
+            "status": "accepted"
+          }
+        ]
+    }
+    },
+    {
+      "fullUrl": "urn:uuid:appointment-123456-telehealth",
+      "resource": {
+        "resourceType": "Appointment",
+        "id": "appointment-123456-telehealth",
+        "status": "booked",
+        "serviceCategory": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/service-category",
+                "code": "appointment",
+                "display": "General Appointment"
+              }
+            ],
+            "text": "General Appointment"
+          }
+        ],
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "185347001",
+                "display": "Telephone encounter"
+              }
+            ],
+            "text": "Telehealth follow-up"
+          }
+        ],
+        "description": "Telehealth check-in to monitor medication adherence",
+        "start": "2025-02-03T11:00:00-05:00",
+        "end": "2025-02-03T11:20:00-05:00",
+        "participant": [
+          {
+            "actor": {
+              "reference": "Patient/123456"
+            },
+            "status": "accepted"
+          },
+          {
+            "actor": {
+              "reference": "Practitioner/primary-care-1",
+              "display": "Dr. Rivera"
+            },
+            "status": "accepted"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -99,7 +99,8 @@ export const capabilityStatementHandler = (c: Context<AppEnv>) => {
               {
                 name: 'category',
                 type: 'token',
-                documentation: 'Filter conditions by condition category',
+                documentation:
+                  'Filter conditions by category (problem-list-item, reason-for-visit, medical-history, dental-finding, infection, encounter-diagnosis, genomics)',
               },
             ],
           },
@@ -115,7 +116,8 @@ export const capabilityStatementHandler = (c: Context<AppEnv>) => {
               {
                 name: 'category',
                 type: 'token',
-                documentation: 'Filter observations by observation category',
+                documentation:
+                  'Filter observations by category (vital-signs, laboratory, social-history, core-characteristics)',
               },
             ],
           },
@@ -138,6 +140,55 @@ export const capabilityStatementHandler = (c: Context<AppEnv>) => {
                 name: 'patient',
                 type: 'reference',
                 documentation: 'Filter medication requests by patient reference',
+              },
+            ],
+          },
+          {
+            type: 'Device',
+            interaction: [{ code: 'search-type' }],
+            searchParam: [
+              {
+                name: 'patient',
+                type: 'reference',
+                documentation: 'Filter devices by patient reference',
+              },
+            ],
+          },
+          {
+            type: 'Procedure',
+            interaction: [{ code: 'search-type' }],
+            searchParam: [
+              {
+                name: 'patient',
+                type: 'reference',
+                documentation: 'Filter procedures by patient reference',
+              },
+            ],
+          },
+          {
+            type: 'Immunization',
+            interaction: [{ code: 'search-type' }],
+            searchParam: [
+              {
+                name: 'patient',
+                type: 'reference',
+                documentation: 'Filter immunizations by patient reference',
+              },
+            ],
+          },
+          {
+            type: 'Appointment',
+            interaction: [{ code: 'search-type' }],
+            searchParam: [
+              {
+                name: 'patient',
+                type: 'reference',
+                documentation: 'Filter appointments by patient reference',
+              },
+              {
+                name: 'service-category',
+                type: 'token',
+                documentation: 'Filter appointments by service category code',
               },
             ],
           },

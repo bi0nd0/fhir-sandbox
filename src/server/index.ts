@@ -17,6 +17,10 @@ import { patientRoutes } from './routes/patient'
 import { conditionRoutes } from './routes/condition'
 import { coverageRoutes } from './routes/coverage'
 import { encounterRoutes } from './routes/encounter'
+import { appointmentRoutes } from './routes/appointment'
+import { deviceRoutes } from './routes/device'
+import { procedureRoutes } from './routes/procedure'
+import { immunizationRoutes } from './routes/immunization'
 import { createOidcProvider } from './oauth/provider'
 import { completeInteraction } from './oauth/interactions'
 import type { AppEnv } from './types'
@@ -135,6 +139,10 @@ export const createApp = () => {
   app.route('/r4/Condition', conditionRoutes)
   app.route('/r4/Coverage', coverageRoutes)
   app.route('/r4/Encounter', encounterRoutes)
+  app.route('/r4/Appointment', appointmentRoutes)
+  app.route('/r4/Device', deviceRoutes)
+  app.route('/r4/Procedure', procedureRoutes)
+  app.route('/r4/Immunization', immunizationRoutes)
   app.route('/:version/metadata', metadataRoute)
 
   app.notFound((c) => {

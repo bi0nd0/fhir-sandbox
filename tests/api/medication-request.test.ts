@@ -12,7 +12,9 @@ describe('GET /r4/MedicationRequest', () => {
 
     const body = await response.json()
     expect(body.resourceType).toBe('Bundle')
-    expect(body.total).toBe(1)
+    expect(body.total).toBeGreaterThanOrEqual(5)
+    const meds = (body.entry ?? []).map((entry: any) => entry.resource?.medicationCodeableConcept?.text)
+    expect(meds).toContain('Lisinopril 10 mg')
   })
 
   it('accepts a Patient/<id> reference', async () => {
@@ -22,7 +24,7 @@ describe('GET /r4/MedicationRequest', () => {
 
     const body = await response.json()
     expect(body.resourceType).toBe('Bundle')
-    expect(body.total).toBe(1)
+    expect(body.total).toBeGreaterThanOrEqual(5)
   })
 
   it('returns 404 when the payload is missing', async () => {

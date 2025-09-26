@@ -1,0 +1,134 @@
+{
+  "resourceType": "Bundle",
+  "type": "searchset",
+  "total": 4,
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:procedure-1",
+      "resource": {
+        "resourceType": "Procedure",
+        "id": "procedure-1",
+        "status": "completed",
+        "category": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "103693007",
+              "display": "Diagnostic procedure"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://www.ama-assn.org/go/cpt",
+              "code": "45378",
+              "display": "Colonoscopy"
+            }
+          ],
+          "text": "Screening colonoscopy"
+        },
+        "performedPeriod": {
+          "start": "2023-08-10T08:00:00Z",
+          "end": "2023-08-10T08:45:00Z"
+        },
+        "subject": {
+          "reference": "Patient/123456"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:procedure-2",
+      "resource": {
+        "resourceType": "Procedure",
+        "id": "procedure-2",
+        "status": "completed",
+        "category": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "387713003",
+              "display": "Surgical procedure"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://www.ama-assn.org/go/cpt",
+              "code": "44970",
+              "display": "Laparoscopic appendectomy"
+            }
+          ],
+          "text": "Laparoscopic appendectomy"
+        },
+        "performedDateTime": "2024-12-12T07:15:00Z",
+        "subject": {
+          "reference": "Patient/123456"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:procedure-3",
+      "resource": {
+        "resourceType": "Procedure",
+        "id": "procedure-3",
+        "status": "completed",
+        "category": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "410606002",
+              "display": "Therapeutic procedure"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://www.ama-assn.org/go/cpt",
+              "code": "64635",
+              "display": "Lumbar epidural steroid injection"
+            }
+          ],
+          "text": "Lumbar epidural steroid injection"
+        },
+        "performedDateTime": "2022-05-22T14:00:00Z",
+        "subject": {
+          "reference": "Patient/123456"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:procedure-4",
+      "resource": {
+        "resourceType": "Procedure",
+        "id": "procedure-4",
+        "status": "completed",
+        "category": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "103693007",
+              "display": "Diagnostic procedure"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://www.ama-assn.org/go/cpt",
+              "code": "71045",
+              "display": "Chest x-ray"
+            }
+          ],
+          "text": "Chest radiograph"
+        },
+        "performedDateTime": "2021-11-15T09:30:00Z",
+        "subject": {
+          "reference": "Patient/123456"
+        }
+      }
+    }
+  ]
+}
