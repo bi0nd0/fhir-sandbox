@@ -1,6 +1,7 @@
 import { serve } from '@hono/node-server'
 import { RESPONSE_ALREADY_SENT } from '@hono/node-server/utils/response'
 import { Hono } from 'hono'
+import type { StatusCode } from 'hono/utils/http-status'
 import { cors } from 'hono/cors'
 import { randomUUID } from 'node:crypto'
 import type { IncomingMessage } from 'node:http'
@@ -100,7 +101,7 @@ export const createApp = () => {
   app.use('/oauth2/*', async (c) => {
     const { incoming, outgoing } = c.env
     const patchedIncoming = incoming as IncomingMessage & { originalUrl?: string }
-    const originalUrl = incoming.url
+    const originalUrl = incoming.url ?? '/'
     const originalOriginalUrl = patchedIncoming.originalUrl
 
     patchedIncoming.originalUrl = originalUrl
@@ -138,14 +139,16 @@ export const createApp = () => {
 
   app.notFound((c) => {
     const outcome = mapErrorToOperationOutcome(new NotFoundError(`Route not found: ${c.req.path}`))
-    return c.json(outcome.body, outcome.status, { 'content-type': 'application/fhir+json' })
+    c.status(outcome.status as StatusCode)
+    return c.json(outcome.body, undefined, { 'content-type': 'application/fhir+json' })
   })
 
   app.onError((error, c) => {
     const outcome = mapErrorToOperationOutcome(error)
     const requestLogger = c.get('logger')
     requestLogger.error({ error }, 'Request failed')
-    return c.json(outcome.body, outcome.status, { 'content-type': 'application/fhir+json' })
+    c.status(outcome.status as StatusCode)
+    return c.json(outcome.body, undefined, { 'content-type': 'application/fhir+json' })
   })
 
   return app

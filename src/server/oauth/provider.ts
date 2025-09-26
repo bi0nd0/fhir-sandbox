@@ -87,6 +87,11 @@ export const createOidcProvider = (): ProviderContext => {
   }
 
   const provider = new Provider(issuer, configuration)
+  const clientAdapter = (provider.Client as unknown as {
+    adapter: {
+      upsert: (clientId: string, payload: DynamicClient) => Promise<void>
+    }
+  }).adapter
   const registry = new Map<string, DynamicClient>()
 
   const registerOrUpdateClient = async ({
@@ -105,7 +110,7 @@ export const createOidcProvider = (): ProviderContext => {
     }
 
     registry.set(clientId, current)
-    await provider.Client.adapter.upsert(clientId, current)
+    await clientAdapter.upsert(clientId, current)
   }
 
   return { provider, registerOrUpdateClient }

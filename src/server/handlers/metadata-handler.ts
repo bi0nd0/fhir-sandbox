@@ -88,6 +88,22 @@ export const capabilityStatementHandler = (c: Context<AppEnv>) => {
             ],
           },
           {
+            type: 'Condition',
+            interaction: [{ code: 'search-type' }],
+            searchParam: [
+              {
+                name: 'patient',
+                type: 'reference',
+                documentation: 'Filter conditions by patient reference',
+              },
+              {
+                name: 'category',
+                type: 'token',
+                documentation: 'Filter conditions by condition category',
+              },
+            ],
+          },
+          {
             type: 'Observation',
             interaction: [{ code: 'search-type' }],
             searchParam: [

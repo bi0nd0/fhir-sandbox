@@ -48,7 +48,9 @@ describe('GET /r4/Condition', () => {
   })
 
   it('rejects invalid patient references', async () => {
-    const response = await app.request('/r4/Condition?patient=Patient!123&category=problem-list-item')
+    const response = await app.request(
+      '/r4/Condition?patient=Patient!123&category=problem-list-item',
+    )
 
     expect(response.status).toBe(400)
 

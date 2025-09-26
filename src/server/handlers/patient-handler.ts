@@ -4,6 +4,8 @@ import { getPatient } from '../services/fhir-repository'
 import { BadRequestError, NotFoundError } from '../utils/errors'
 import type { AppEnv } from '../types'
 
+type PatientResource = Record<string, unknown> & { id?: string }
+
 export const searchPatientHandler = async (c: Context<AppEnv>) => {
   const id = c.req.query('_id')
 
@@ -12,7 +14,7 @@ export const searchPatientHandler = async (c: Context<AppEnv>) => {
   }
 
   try {
-    const resource = await getPatient(id)
+    const resource = await getPatient<PatientResource>(id)
     const bundle = {
       resourceType: 'Bundle',
       type: 'searchset',

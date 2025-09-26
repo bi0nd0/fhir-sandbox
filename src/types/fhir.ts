@@ -2,7 +2,11 @@ export const OBSERVATION_CATEGORIES = ['vital-signs', 'laboratory', 'social-hist
 
 export type ObservationCategory = (typeof OBSERVATION_CATEGORIES)[number]
 
-export const CONDITION_CATEGORIES = ['problem-list-item', 'reason-for-visit', 'medical-history'] as const
+export const CONDITION_CATEGORIES = [
+  'problem-list-item',
+  'reason-for-visit',
+  'medical-history',
+] as const
 
 export type ConditionCategory = (typeof CONDITION_CATEGORIES)[number]
 

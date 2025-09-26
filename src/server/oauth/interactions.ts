@@ -14,12 +14,14 @@ export const completeInteraction = async (
 
   const accountId = DEFAULT_ACCOUNT_ID
 
-  const grant = details.grantId
-    ? await provider.Grant.find(details.grantId)
-    : new provider.Grant({
-        accountId,
-        clientId: params.client_id as string,
-      })
+  let grant = details.grantId ? await provider.Grant.find(details.grantId) : undefined
+
+  if (!grant) {
+    grant = new provider.Grant({
+      accountId,
+      clientId: params.client_id as string,
+    })
+  }
 
   if (params.scope && typeof params.scope === 'string') {
     grant.addOIDCScope(params.scope)
