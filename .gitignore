@@ -26,3 +26,7 @@ dist-ssr
 data/r4/*
 !data/r4/123456/
 !data/r4/123456/**
+
+# Sandbox runtime storage
+data/storage/
+.env

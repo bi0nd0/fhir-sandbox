@@ -20,6 +20,7 @@ npm run dev           # Optional: start the placeholder Vite client on http://lo
 | `EXTERNAL_BASE_URL`  | Public base URL used in CapabilityStatement links. | *(derived from request)*     |
 | `OIDC_ISSUER`        | External issuer URL reported by the OAuth provider. | `http://localhost:3000/oauth2` |
 | `OIDC_COOKIE_KEY`    | Signing key for OIDC cookies.                       | `smart-sandbox-secret`       |
+| `SANDBOX_DB_PATH`    | File path for the shared SQLite store (tokens, users). | `data/storage/sandbox.sqlite` |
 
 ### Build & Test
 

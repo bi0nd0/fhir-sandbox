@@ -17,6 +17,7 @@ npm run dev           # Optional: start the placeholder Vite client on http://lo
 | `CORS_ALLOW_ORIGINS` | Comma-separated list of origins allowed via CORS.   | `*`
 | `OIDC_ISSUER`        | External issuer URL reported by the OAuth provider. | `http://localhost:3000/oauth2`|
 | `OIDC_COOKIE_KEY`    | Signing key for OIDC cookies.                       | `smart-sandbox-secret`
+| `SANDBOX_DB_PATH`    | File path for the shared SQLite store (tokens, users). | `data/storage/sandbox.sqlite`
 
 ### Build & Test
 
