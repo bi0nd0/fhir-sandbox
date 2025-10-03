@@ -15,12 +15,16 @@
   },
   "dependencies": {
     "@hono/node-server": "^1.13.5",
+    "better-sqlite3": "^9.4.5",
+    "drizzle-orm": "^0.44.6",
     "hono": "^4.6.5",
     "oidc-provider": "^9.5.1",
     "pino": "^9.6.0",
     "zod": "^3.24.1"
   },
   "devDependencies": {
+    "@tailwindcss/vite": "^4.1.0",
+    "@types/better-sqlite3": "^7.6.12",
     "@types/node": "^22.10.1",
     "@types/oidc-provider": "^9.5.0",
     "@typescript-eslint/eslint-plugin": "^8.19.1",
@@ -30,6 +34,7 @@
     "eslint-plugin-prettier": "^5.2.1",
     "pino-pretty": "^11.3.0",
     "prettier": "^3.4.2",
+    "tailwindcss": "^4.1.0",
     "tsx": "^4.19.2",
     "typescript": "~5.8.3",
     "vite": "^7.1.7",

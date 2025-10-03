@@ -3,11 +3,14 @@ import { RESPONSE_ALREADY_SENT } from '@hono/node-server/utils/response'
 import { Hono } from 'hono'
 import type { StatusCode } from 'hono/utils/http-status'
 import { cors } from 'hono/cors'
+import { serveStatic } from '@hono/node-server/serve-static'
 import { randomUUID } from 'node:crypto'
 import type { IncomingMessage } from 'node:http'
 import { performance } from 'node:perf_hooks'
 import path from 'node:path'
 import { pathToFileURL } from 'node:url'
+
+import instance from 'oidc-provider/lib/helpers/weak_cache.js'
 
 import { allergyIntoleranceRoutes } from './routes/allergy-intolerance'
 import { medicationRequestRoutes } from './routes/medication-request'
@@ -21,15 +24,23 @@ import { appointmentRoutes } from './routes/appointment'
 import { deviceRoutes } from './routes/device'
 import { procedureRoutes } from './routes/procedure'
 import { immunizationRoutes } from './routes/immunization'
+
 import { createOidcProvider } from './oauth/provider'
-import { completeInteraction } from './oauth/interactions'
+import {
+  finalizeInteraction,
+  getInteractionContext,
+  renderInteractionPage,
+  renderSessionPage,
+} from './oauth/interactions'
 import type { AppEnv } from './types'
 import { createChildLogger, logger } from './utils/logger'
 import { mapErrorToOperationOutcome, NotFoundError } from './utils/errors'
 import { parseBasicAuthHeader } from './utils/oauth'
+import { createAuthService } from './services/auth-service'
 
 export const createApp = () => {
   const { provider, registerOrUpdateClient } = createOidcProvider()
+  const authService = createAuthService()
   const app = new Hono<AppEnv>()
 
   const corsEnv = process.env.CORS_ALLOW_ORIGINS ?? '*'
@@ -50,6 +61,8 @@ export const createApp = () => {
     }),
   )
 
+  app.use('/assets/*', serveStatic({ root: './public' }))
+
   app.use('*', async (c, next) => {
     const requestId = randomUUID()
     const requestLogger = createChildLogger({
@@ -60,6 +73,7 @@ export const createApp = () => {
 
     const start = performance.now()
     c.set('logger', requestLogger)
+    c.set('authService', authService)
 
     try {
       await next()
@@ -70,6 +84,8 @@ export const createApp = () => {
   })
 
   app.get('/__health', (c) => c.json({ status: 'ok' }))
+
+  app.get('/oauth2/session', (c) => c.html(renderSessionPage()))
 
   app.use('/oauth2/authorize', async (c, next) => {
     const url = new URL(c.req.url)
@@ -96,9 +112,72 @@ export const createApp = () => {
     await next()
   })
 
-  app.all('/oauth2/interaction/:uid', async (c) => {
+  app.post('/oauth2/logout', async (c) => {
     const { incoming, outgoing } = c.env
-    await completeInteraction(provider, incoming, outgoing)
+    const providerContext = provider.createContext(incoming, outgoing)
+    const session = await provider.Session.get(providerContext)
+    const cookieName = provider.cookieName('session')
+    const cookieOptions = instance(provider).configuration.cookies.long
+
+    if (!session.accountId) {
+      providerContext.cookies.set(cookieName, null, cookieOptions)
+      return c.json({ status: 'no-active-session' })
+    }
+
+    const accountId = session.accountId
+    await session.destroy()
+    providerContext.cookies.set(cookieName, null, cookieOptions)
+    const log = c.get('logger')
+    log.info({ accountId }, 'Session terminated via logout endpoint')
+
+    return c.json({ status: 'logged-out' })
+  })
+
+  app.get('/oauth2/interaction/:uid', async (c) => {
+    const { incoming, outgoing } = c.env
+    const context = await getInteractionContext(provider, incoming, outgoing)
+    const errorCode = c.req.query('error') ?? undefined
+    const lastUsername = c.req.query('username') ?? undefined
+
+    const errorMessage = errorCode === 'invalid_credentials' ? 'Invalid username or password.' : undefined
+
+    const html = renderInteractionPage({
+      ...context,
+      errorMessage,
+      lastUsername,
+    })
+
+    return c.html(html)
+  })
+
+  app.post('/oauth2/interaction/:uid/login', async (c) => {
+    const { uid } = c.req.param()
+    const body = await c.req.parseBody()
+    const usernameRaw = body['username']
+    const passwordRaw = body['password']
+    const username = typeof usernameRaw === 'string' ? usernameRaw.trim() : ''
+    const password = typeof passwordRaw === 'string' ? passwordRaw : ''
+
+    if (!username || !password) {
+      const query = new URLSearchParams({ error: 'invalid_credentials' })
+      if (username) {
+        query.set('username', username)
+      }
+      return c.redirect(`/oauth2/interaction/${encodeURIComponent(uid)}?${query.toString()}`, 303)
+    }
+
+    const auth = c.get('authService')
+    const requestLogger = c.get('logger')
+    const user = auth.verifyCredentials(username, password)
+
+    if (!user) {
+      const query = new URLSearchParams({ error: 'invalid_credentials', username })
+      return c.redirect(`/oauth2/interaction/${encodeURIComponent(uid)}?${query.toString()}`, 303)
+    }
+
+    const { incoming, outgoing } = c.env
+    requestLogger.info({ username, userId: user.id }, 'Authorization interaction authenticated')
+    await finalizeInteraction(provider, incoming, outgoing, user.id)
     return RESPONSE_ALREADY_SENT
   })
 
