@@ -12,7 +12,7 @@ describe('GET /r4/Observation', () => {
 
     const body = await response.json()
     expect(body.resourceType).toBe('Bundle')
-    expect(body.total).toBeGreaterThanOrEqual(7)
+    expect(body.total).toBeGreaterThanOrEqual(2)
   })
 
   it('accepts patient references with resource prefix', async () => {
@@ -24,7 +24,7 @@ describe('GET /r4/Observation', () => {
 
     const body = await response.json()
     expect(body.resourceType).toBe('Bundle')
-    expect(body.total).toBeGreaterThanOrEqual(7)
+    expect(body.total).toBeGreaterThanOrEqual(2)
   })
 
   it('rejects missing category queries', async () => {

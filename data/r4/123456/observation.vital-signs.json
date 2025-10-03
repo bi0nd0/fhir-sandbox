@@ -1,7 +1,7 @@
 {
   "resourceType": "Bundle",
   "type": "searchset",
-  "total": 7,
+  "total": 4,
   "entry": [
     {
       "resource": {
@@ -106,7 +106,7 @@
     {
       "resource": {
         "resourceType": "Observation",
-        "id": "na-001",
+        "id": "bp-2023-03",
         "status": "final",
         "category": [
           {
@@ -123,26 +123,54 @@
           "coding": [
             {
               "system": "http://loinc.org",
-              "code": "2947-0",
-              "display": "Sodium [Moles/volume] in Blood"
+              "code": "85354-9",
+              "display": "Blood pressure panel"
             }
           ],
-          "text": "Serum Sodium"
+          "text": "Blood pressure"
         },
         "subject": {
           "reference": "Patient/123456"
         },
-        "effectiveDateTime": "2024-10-05T09:00:00Z",
-        "valueQuantity": {
-          "value": 139,
-          "unit": "mmol/L"
-        }
+        "effectiveDateTime": "2023-03-18T08:45:00Z",
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "8480-6",
+                  "display": "Systolic blood pressure"
+                }
+              ]
+            },
+            "valueQuantity": {
+              "value": 122,
+              "unit": "mmHg"
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "8462-4",
+                  "display": "Diastolic blood pressure"
+                }
+              ]
+            },
+            "valueQuantity": {
+              "value": 78,
+              "unit": "mmHg"
+            }
+          }
+        ]
       }
     },
     {
       "resource": {
         "resourceType": "Observation",
-        "id": "na-002",
+        "id": "bp-2023-05",
         "status": "final",
         "category": [
           {
@@ -159,128 +187,48 @@
           "coding": [
             {
               "system": "http://loinc.org",
-              "code": "2947-0",
-              "display": "Sodium [Moles/volume] in Blood"
+              "code": "85354-9",
+              "display": "Blood pressure panel"
             }
           ],
-          "text": "Serum Sodium"
+          "text": "Blood pressure"
         },
         "subject": {
           "reference": "Patient/123456"
         },
-        "effectiveDateTime": "2024-10-12T09:00:00Z",
-        "valueQuantity": {
-          "value": 140,
-          "unit": "mmol/L"
-        }
-      }
-    },
-    {
-      "resource": {
-        "resourceType": "Observation",
-        "id": "na-003",
-        "status": "final",
-        "category": [
+        "effectiveDateTime": "2023-05-22T09:20:00Z",
+        "component": [
           {
-            "coding": [
-              {
-                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
-                "code": "vital-signs",
-                "display": "Vital Signs"
-              }
-            ]
-          }
-        ],
-        "code": {
-          "coding": [
-            {
-              "system": "http://loinc.org",
-              "code": "2947-0",
-              "display": "Sodium [Moles/volume] in Blood"
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "8480-6",
+                  "display": "Systolic blood pressure"
+                }
+              ]
+            },
+            "valueQuantity": {
+              "value": 118,
+              "unit": "mmHg"
             }
-          ],
-          "text": "Serum Sodium"
-        },
-        "subject": {
-          "reference": "Patient/123456"
-        },
-        "effectiveDateTime": "2024-10-19T09:00:00Z",
-        "valueQuantity": {
-          "value": 141,
-          "unit": "mmol/L"
-        }
-      }
-    },
-    {
-      "resource": {
-        "resourceType": "Observation",
-        "id": "na-101",
-        "status": "final",
-        "category": [
+          },
           {
-            "coding": [
-              {
-                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
-                "code": "vital-signs",
-                "display": "Vital Signs"
-              }
-            ]
-          }
-        ],
-        "code": {
-          "coding": [
-            {
-              "system": "http://loinc.org",
-              "code": "2947-0",
-              "display": "Sodium [Moles/volume] in Blood"
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "8462-4",
+                  "display": "Diastolic blood pressure"
+                }
+              ]
+            },
+            "valueQuantity": {
+              "value": 74,
+              "unit": "mmHg"
             }
-          ],
-          "text": "Serum Sodium"
-        },
-        "subject": {
-          "reference": "Patient/123456"
-        },
-        "effectiveDateTime": "2023-02-14T08:30:00Z",
-        "valueQuantity": {
-          "value": 138,
-          "unit": "mmol/L"
-        }
-      }
-    },
-    {
-      "resource": {
-        "resourceType": "Observation",
-        "id": "na-201",
-        "status": "final",
-        "category": [
-          {
-            "coding": [
-              {
-                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
-                "code": "vital-signs",
-                "display": "Vital Signs"
-              }
-            ]
           }
-        ],
-        "code": {
-          "coding": [
-            {
-              "system": "http://loinc.org",
-              "code": "2947-0",
-              "display": "Sodium [Moles/volume] in Blood"
-            }
-          ],
-          "text": "Serum Sodium"
-        },
-        "subject": {
-          "reference": "Patient/123456"
-        },
-        "effectiveDateTime": "2021-06-20T08:30:00Z",
-        "valueQuantity": {
-          "value": 137,
-          "unit": "mmol/L"
-        }
+        ]
       }
     }
   ]
