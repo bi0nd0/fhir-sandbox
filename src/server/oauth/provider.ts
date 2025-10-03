@@ -3,6 +3,8 @@ import { parse as legacyUrlParse } from 'node:url'
 
 import Provider, { type Configuration } from 'oidc-provider'
 
+import { createOidcAdapter } from '../services/oidc-adapter'
+
 type DynamicClient = {
   client_id: string
   client_secret: string
@@ -55,6 +57,7 @@ export const createOidcProvider = (): ProviderContext => {
 
   const configuration: Configuration = {
     clients: [],
+    adapter: createOidcAdapter(),
     routes: {
       authorization: '/authorize',
       token: '/token',
@@ -77,6 +80,13 @@ export const createOidcProvider = (): ProviderContext => {
     interactions: {
       url: (_ctx, interaction) => `/oauth2/interaction/${interaction.uid}`,
     },
+    ttl: {
+      AccessToken: 60 * 15,
+      AuthorizationCode: 60,
+      IdToken: 60 * 15,
+      RefreshToken: 60 * 60 * 24 * 30,
+      Session: 60 * 60 * 12,
+    },
     features: {
       devInteractions: { enabled: false },
       clientCredentials: { enabled: false },
@@ -84,7 +94,7 @@ export const createOidcProvider = (): ProviderContext => {
       rpInitiatedLogout: { enabled: false },
       registration: { enabled: false },
       introspection: { enabled: false },
-      revocation: { enabled: false },
+      revocation: { enabled: true },
     },
   }
 

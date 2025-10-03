@@ -1,7 +1,6 @@
 import { readFileSync } from 'node:fs'
 import path from 'node:path'
 
-import Database from 'better-sqlite3'
 import { drizzle, type BetterSQLite3Database } from 'drizzle-orm/better-sqlite3'
 import { eq } from 'drizzle-orm'
 
@@ -9,6 +8,7 @@ import { AuthCredentialSeedSchema, type AuthCredential } from '../schemas/auth'
 import * as schema from '../db/schema'
 import { DataStoreError } from '../utils/errors'
 import { createChildLogger, type Logger } from '../utils/logger'
+import { sqlite } from '../db/connection'
 
 const DEFAULT_CREDENTIALS_PATH = path.resolve(process.cwd(), 'data', 'auth', 'credentials.json')
 
@@ -53,8 +53,7 @@ const loadCredentialSeed = (): AuthCredential[] => {
   return parsed.data
 }
 
-const createDatabase = (): AuthDatabase => {
-  const sqlite = new Database(':memory:')
+const initializeSchema = (db: AuthDatabase): void => {
   sqlite.exec(`
     CREATE TABLE IF NOT EXISTS users (
       id TEXT PRIMARY KEY,
@@ -65,7 +64,11 @@ const createDatabase = (): AuthDatabase => {
     );
   `)
 
-  return drizzle(sqlite, { schema })
+  // ensure indexes exist when sqlite is reused across restarts
+  sqlite.exec(`CREATE INDEX IF NOT EXISTS users_username_idx ON users (username);`)
+
+  // warm schema by performing a no-op query
+  db.select({ id: schema.users.id }).from(schema.users).limit(1).all()
 }
 
 const seedCredentials = (db: AuthDatabase, credentials: AuthCredential[]): void => {
@@ -138,7 +141,8 @@ export class AuthService {
 
 export const createAuthService = (): AuthService => {
   const credentials = loadCredentialSeed()
-  const db = createDatabase()
+  const db = drizzle(sqlite, { schema })
+  initializeSchema(db)
   seedCredentials(db, credentials)
 
   const log = createChildLogger({ module: 'auth-service' })
