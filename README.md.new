@@ -7,7 +7,8 @@ A lightweight SMART on FHIR R4 sandbox built with Node.js, TypeScript, and Hono.
 ```bash
 npm install
 npm run dev:server    # Start the Hono API (defaults to http://localhost:3000)
-npm run dev           # Optional: start the placeholder Vite client on http://localhost:5173
+npm run dev           # Start the Vite client in dev mode (http://localhost:5173)
+# npm run dev:full   # Optional: run both server and client concurrently
 ```
 
 ### Configuration

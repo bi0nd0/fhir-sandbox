@@ -10,6 +10,7 @@
     "build:server": "tsc --project tsconfig.node.json",
     "build:client": "tsc --project tsconfig.app.json --noEmit && vite build",
     "preview": "vite preview",
+    "dev:full": "concurrently \"npm run dev:server\" \"npm run dev\"",
     "lint": "ESLINT_USE_FLAT_CONFIG=false eslint \"src/**/*.{ts,tsx}\" \"tests/**/*.ts\"",
     "test": "vitest"
   },
@@ -37,6 +38,7 @@
     "eslint": "^9.16.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
+    "concurrently": "^9.1.0",
     "pino-pretty": "^11.3.0",
     "prettier": "^3.4.2",
     "tailwindcss": "^4.1.0",

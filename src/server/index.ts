@@ -7,11 +7,12 @@ import { cors } from 'hono/cors'
 import { serveStatic } from '@hono/node-server/serve-static'
 import { randomUUID } from 'node:crypto'
 import { existsSync, readFileSync } from 'node:fs'
-import type { IncomingMessage } from 'node:http'
+import type { IncomingMessage, ServerResponse } from 'node:http'
 import { performance } from 'node:perf_hooks'
 import path from 'node:path'
 import { pathToFileURL } from 'node:url'
 
+import type Provider from 'oidc-provider'
 import instance from 'oidc-provider/lib/helpers/weak_cache.js'
 
 import { allergyIntoleranceRoutes } from './routes/allergy-intolerance'
@@ -59,14 +60,32 @@ const serveSpa = (c: Context<AppEnv>) => {
   const html = loadSpaHtml()
 
   if (!html) {
+    const devServerUrl = process.env.VITE_DEV_SERVER_URL ?? 'http://localhost:5173'
+    if (process.env.NODE_ENV !== 'production') {
+      const devHtml = `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SMART Sandbox</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="${devServerUrl}/src/client/main.ts"></script>
+  </body>
+</html>`
+      return c.html(devHtml)
+    }
+
     return c.text(
-      'Client build not found. Run `npm run build:client` for production or start the Vite dev server.',
+      'Client build not found. Run `npm run build:client` (production) or start the Vite dev server.',
       503,
     )
   }
 
   return c.html(html)
 }
+
 
 export const createApp = () => {
   const { provider, registerOrUpdateClient } = createOidcProvider()
@@ -116,7 +135,22 @@ export const createApp = () => {
   app.get('/__health', (c) => c.json({ status: 'ok' }))
 
   app.get('/oauth2/session', serveSpa)
-  app.get('/oauth2/interaction/:uid', serveSpa)
+  app.get('/oauth2/interaction/:uid', async (c) => {
+    const { uid } = c.req.param()
+    const { incoming, outgoing } = c.env
+
+    try {
+      const { setCookies } = await getInteractionContext(provider, incoming, outgoing, uid)
+      for (const cookie of setCookies) {
+        c.header('Set-Cookie', cookie, { append: true })
+      }
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Interaction lookup failed'
+      return c.json({ error: 'interaction_not_found', message }, 404)
+    }
+
+    return serveSpa(c)
+  })
   app.get('/admin/ui/*', serveSpa)
 
   app.use('/oauth2/authorize', async (c, next) => {
@@ -148,7 +182,7 @@ export const createApp = () => {
     const { incoming, outgoing } = c.env
     const providerContext = provider.createContext(incoming, outgoing)
     const session = await provider.Session.get(providerContext)
-    const cookieName = provider.cookieName('session')
+    const cookieName = (provider as unknown as { cookieName: (type: string) => string }).cookieName('session')
     const cookieOptions = instance(provider).configuration.cookies.long
 
     if (!session.accountId) {
@@ -166,11 +200,17 @@ export const createApp = () => {
   })
 
   app.get('/oauth2/api/interaction/:uid', async (c) => {
+    const { uid } = c.req.param()
     try {
       const { incoming, outgoing } = c.env
-      const context = await getInteractionContext(provider, incoming, outgoing)
+      const { context, setCookies } = await getInteractionContext(provider, incoming, outgoing, uid)
+      console.log('print something')
+      for (const cookie of setCookies) {
+        c.header('Set-Cookie', cookie, { append: true })
+      }
       return c.json(context)
     } catch (error) {
+      console.log(error)
       const message = error instanceof Error ? error.message : 'Unable to load interaction context'
       return c.json({ error: 'interaction_not_found', message }, 404)
     }
@@ -205,8 +245,17 @@ export const createApp = () => {
     const { incoming, outgoing } = c.env
 
     try {
-      const redirectTo = await finalizeInteraction(provider, incoming, outgoing, user.id)
+      const { redirectTo, setCookies } = await finalizeInteraction(
+        provider,
+        incoming,
+        outgoing,
+        uid,
+        user.id,
+      )
       requestLogger.info({ username, userId: user.id }, 'Authorization interaction authenticated')
+      for (const cookie of setCookies) {
+        c.header('Set-Cookie', cookie, { append: true })
+      }
       return c.json({ status: 'ok', redirectTo })
     } catch (error) {
       requestLogger.error({ error, username }, 'Failed to finalize interaction')

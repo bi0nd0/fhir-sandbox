@@ -1,4 +1,4 @@
-import { and, eq, gt, isNotNull, isNull, lt } from 'drizzle-orm'
+import { and, eq, gt, isNotNull, isNull, lt, type SQL } from 'drizzle-orm'
 import { drizzle } from 'drizzle-orm/better-sqlite3'
 
 import { sqlite } from '../db/connection'
@@ -50,36 +50,28 @@ const parsePayload = (raw: string): Record<string, unknown> => {
 }
 
 export const listTokens = ({ type, status = 'all', limit = 100 }: TokenFilter): TokenSummary[] => {
-  const conditions: unknown[] = []
+  const filters: SQL[] = []
 
   if (type) {
-    conditions.push(eq(oidcTokens.type, type))
+    filters.push(eq(oidcTokens.type, type))
   }
 
   const statusClause = statusCondition(status)
   if (statusClause) {
-    conditions.push(statusClause)
+    filters.push(statusClause)
   }
 
-  const whereClause = (() => {
-    if (conditions.length === 0) {
-      return undefined
-    }
+  let whereClause: SQL | undefined
+  if (filters.length === 1) {
+    whereClause = filters[0]
+  } else if (filters.length > 1) {
+    whereClause = and(...filters)
+  }
 
-    if (conditions.length === 1) {
-      return conditions[0]
-    }
+  const baseQuery = db.select().from(oidcTokens)
+  const filteredQuery = whereClause ? baseQuery.where(whereClause) : baseQuery
 
-    return and(...(conditions as any[]))
-  })()
-
-  const rows = db
-    .select()
-    .from(oidcTokens)
-    .where(whereClause)
-    .orderBy(oidcTokens.expiresAt)
-    .limit(limit)
-    .all()
+  const rows = filteredQuery.orderBy(oidcTokens.expiresAt).limit(limit).all()
 
   return rows.map((row) => ({
     id: row.id,

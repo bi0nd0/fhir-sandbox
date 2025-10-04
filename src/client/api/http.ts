@@ -10,9 +10,6 @@ const defaultHeaders: Record<string, string> = {
   Accept: 'application/json',
 }
 
-const isJson = (value: unknown): value is Record<string, unknown> =>
-  typeof value === 'object' && value !== null
-
 export const httpRequest = async <T>(url: string, options: HttpRequestOptions = {}): Promise<T> => {
   const headers = { ...defaultHeaders, ...(options.headers ?? {}) }
   let body: BodyInit | undefined
@@ -32,13 +29,22 @@ export const httpRequest = async <T>(url: string, options: HttpRequestOptions = 
     credentials: 'include',
   })
 
+  const contentType = response.headers.get('content-type') ?? ''
+
   if (!response.ok) {
+    if (contentType.includes('application/json')) {
+      const json = (await response.json()) as Record<string, unknown>
+      const message = typeof json.message === 'string' ? json.message : JSON.stringify(json)
+      const error = new Error(message)
+      ;(error as Error & { cause?: unknown }).cause = json
+      throw error
+    }
+
     const text = await response.text()
     throw new Error(text || `Request failed with status ${response.status}`)
   }
 
-  const contentType = response.headers.get('content-type')
-  if (contentType && contentType.includes('application/json')) {
+  if (contentType.includes('application/json')) {
     return (await response.json()) as T
   }
 
