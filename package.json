@@ -19,7 +19,10 @@
     "drizzle-orm": "^0.44.6",
     "hono": "^4.6.5",
     "oidc-provider": "^9.5.1",
+    "pinia": "^2.1.7",
     "pino": "^9.6.0",
+    "vue": "^3.5.11",
+    "vue-router": "^4.4.3",
     "zod": "^3.24.1"
   },
   "devDependencies": {
@@ -27,6 +30,8 @@
     "@types/better-sqlite3": "^7.6.12",
     "@types/node": "^22.10.1",
     "@types/oidc-provider": "^9.5.0",
+    "@vitejs/plugin-vue": "^5.1.2",
+    "@vue/compiler-sfc": "^3.5.11",
     "@typescript-eslint/eslint-plugin": "^8.19.1",
     "@typescript-eslint/parser": "^8.19.1",
     "eslint": "^9.16.0",

@@ -14,5 +14,7 @@ if (!existsSync(directory)) {
 
 export const sqlite = new Database(DEFAULT_DB_PATH)
 
+sqlite.exec('PRAGMA busy_timeout = 5000;')
+
 sqlite.pragma('journal_mode = WAL')
 sqlite.pragma('foreign_keys = ON')
