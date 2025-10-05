@@ -7,7 +7,8 @@ A lightweight SMART on FHIR R4 sandbox built with Node.js, TypeScript, and Hono.
 ```bash
 npm install
 npm run dev:server    # Start the Hono API with auto-restart (http://localhost:3000)
-npm run dev           # Optional: start the placeholder Vite client on http://localhost:5173
+npm run dev           # Start the Vite client in dev mode (http://localhost:5173)
+# npm run dev:full   # Optional: run both server and client concurrently
 ```
 
 > `npm run dev:server` uses `tsx watch` so the server restarts automatically when files in `src/server` change.
@@ -21,6 +22,7 @@ npm run dev           # Optional: start the placeholder Vite client on http://lo
 | `OIDC_ISSUER`        | External issuer URL reported by the OAuth provider. | `http://localhost:3000/oauth2` |
 | `OIDC_COOKIE_KEY`    | Signing key for OIDC cookies.                       | `smart-sandbox-secret`       |
 | `SANDBOX_DB_PATH`    | File path for the shared SQLite store (tokens, users). | `data/storage/sandbox.sqlite` |
+| `SANDBOX_ADMIN_TOKEN`| Shared secret for admin APIs (`x-admin-token` header). | *(unset; admin APIs disabled)* |
 
 ### Build & Test
 
@@ -53,6 +55,8 @@ OAuth2 endpoints are mounted under `/oauth2` and implemented with [`oidc-provide
 - `POST /oauth2/token`
 
 The sandbox auto-registers any `client_id` it sees, captures `redirect_uri` values on the fly, and accepts any client secret (it simply stores the value presented during the token request). Authorization requests now pause on a Tailwind-styled login and consent screen; use one of the seeded credentials in `data/auth/credentials.json` to continue the SMART flow. Visit `GET /oauth2/session` (served by the Node API) to trigger the same Tailwind experience for logging out, or call `POST /oauth2/logout` directly to clear the session before authenticating as another user. Refresh tokens are minted whenever `offline_access` is present; tokens live in the shared SQLite store via Drizzle and the `/oauth2/token` endpoint now honors `grant_type=refresh_token` for SMART-compliant re-issuance. The `/r4/metadata` response surfaces these endpoint URLs via the standard SMART extension.
+
+For debugging, the `/admin/tokens` JSON API lists stored artifacts when `SANDBOX_ADMIN_TOKEN` is set. Supply the token via the `x-admin-token` header to query or revoke entries. A Vue-powered admin console is available at `/admin/ui/tokens` to browse and revoke tokens visually (it also requires the admin token).
 
 `*` _Note:_ `oidc-provider` warns about development-only keys and the current Node runtime (the sandbox runs on Node 21) when executing locally; these warnings are expected for this mock environment.
 

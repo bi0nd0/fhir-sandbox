@@ -6,10 +6,13 @@
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "types": ["vite/client"],
     "skipLibCheck": true,
+    "jsx": "preserve",
+    "allowJs": false,
 
     /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
+    "allowSyntheticDefaultImports": true,
     "verbatimModuleSyntax": true,
     "moduleDetection": "force",
     "noEmit": true,
