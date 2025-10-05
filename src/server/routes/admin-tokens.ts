@@ -40,7 +40,7 @@ export const adminTokensRoute = new Hono<AppEnv>()
 
 adminTokensRoute.use('*', async (c, next) => {
   const tokenHeader = c.req.header(REQUIRED_HEADER) ?? c.req.header('authorization')
-
+  console.log('here we are', tokenHeader)
   if (!authorize(tokenHeader)) {
     return c.json(
       {

@@ -1,3 +1,5 @@
+import 'dotenv/config'
+
 import { serve } from '@hono/node-server'
 import { RESPONSE_ALREADY_SENT } from '@hono/node-server/utils/response'
 import { Hono } from 'hono'
